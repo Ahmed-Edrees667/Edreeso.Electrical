@@ -30,6 +30,20 @@
           "name": "Equipment & Components",
           "topics": [
             "MV Switchgear (GIS & AIS)",
+            [
+  {
+    "id": 1,
+    "title": "أول مقال",
+    "content": "هذا هو المحتوى",
+    "date": "2026-04-19"
+  },
+  {
+    "id": 2,
+    "title": "شرح CSS",
+    "content": "في هذا الشرح سنتعلم CSS بالتفصيل...",
+    "date": "2026-04-20"
+  }
+]
             "Ring Main Unit (RMU)",
             "Power Transformers",
             "MV Cables (XLPE/EPR)",
