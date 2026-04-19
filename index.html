@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edreeso Electrical Engineering</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700;800&family=Cinzel:wght@400;700;900&family=Raleway:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --red:#C0392B; --red-dark:#7B2D2D; --red-deep:#5C1A1A;
+  --white:#ffffff; --text:#222;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Raleway',sans-serif;background:#fff;color:var(--text);overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(170,170,170,0.07) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(170,170,170,0.07) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;z-index:0;}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,0.97);
+  backdrop-filter:blur(12px);border-bottom:2.5px solid var(--red);
+  padding:10px 36px;display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 2px 20px rgba(192,57,43,0.10);}
+.header-left{display:flex;align-items:center;gap:18px;}
+.profile-circle{width:72px;height:72px;border-radius:50%;border:3px solid var(--red);
+  overflow:hidden;flex-shrink:0;box-shadow:0 0 0 5px rgba(192,57,43,0.12);background:#eee;}
+.profile-circle img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
+.site-name{font-family:'Cormorant Garamond',serif;font-size:2.15rem;font-weight:800;color:var(--red);
+  letter-spacing:2.5px;line-height:1.1;text-shadow:1px 2px 12px rgba(192,57,43,0.15);}
+.site-tagline{font-size:0.68rem;color:#aaa;letter-spacing:3px;text-transform:uppercase;margin-top:3px;}
+.header-badges{display:flex;gap:6px;flex-wrap:wrap;}
+.badge{background:var(--red);color:#fff;font-size:0.6rem;padding:3px 9px;border-radius:20px;
+  font-weight:700;letter-spacing:1px;}
+
+/* HERO */
+.hero{position:relative;z-index:1;padding:48px 40px 30px;text-align:center;
+  background:linear-gradient(180deg,rgba(192,57,43,0.03) 0%,transparent 100%);}
+.hero h2{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.5rem);
+  color:var(--text);font-weight:700;margin-bottom:10px;}
+.hero h2 span{color:var(--red);}
+.hero p{font-size:.9rem;color:#666;max-width:580px;margin:0 auto;line-height:1.7;}
+.divider{width:70px;height:3px;background:var(--red);margin:16px auto;border-radius:2px;}
+
+/* PROFILE INFO STRIP */
+.profile-strip{position:relative;z-index:1;background:linear-gradient(135deg,#fafafa,#f5f0ef);
+  border-top:1px solid #eee;border-bottom:1px solid #eee;padding:18px 40px;
+  display:flex;align-items:center;justify-content:center;gap:36px;flex-wrap:wrap;}
+.pstrip-item{display:flex;align-items:center;gap:8px;font-size:.8rem;color:#555;}
+.pstrip-item i{color:var(--red);font-size:.85rem;}
+.pstrip-label{font-weight:700;color:#333;}
+
+/* GRID */
+.sections-wrapper{position:relative;z-index:1;padding:16px 28px 50px;max-width:1400px;margin:0 auto;}
+.section-title-bar{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:3px;
+  text-transform:uppercase;color:#aaa;margin-bottom:16px;padding-left:4px;}
+.sections-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;}
+
+/* CARD */
+.section-card{border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);
+  cursor:pointer;transition:transform .3s,box-shadow .3s;background:#fff;
+  border:1.5px solid #eee;}
+.section-card:hover{transform:translateY(-5px);box-shadow:0 10px 38px rgba(192,57,43,0.18);border-color:var(--red);}
+.card-thumb{height:145px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.card-thumb svg{width:80px;height:80px;opacity:.85;transition:transform .4s;}
+.section-card:hover .card-thumb svg{transform:scale(1.1) rotate(3deg);}
+.card-thumb-mv{background:linear-gradient(135deg,#1a1a2e,#2c2c54);}
+.card-thumb-lv{background:linear-gradient(135deg,#0f3460,#1a6b8a);}
+.card-thumb-lc{background:linear-gradient(135deg,#1b4332,#2d6a4f);}
+.card-thumb-et{background:linear-gradient(135deg,#6b2d2d,#b5451b);}
+.card-label-overlay{position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(0,0,0,0.65));color:#fff;
+  padding:10px 14px 8px;font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;letter-spacing:1px;}
+.card-body{padding:14px 18px 18px;}
+.card-desc{font-size:.78rem;color:#777;line-height:1.6;margin-bottom:12px;}
+.card-meta{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.card-count{font-size:.7rem;color:#aaa;font-style:italic;}
+.enter-btn{display:block;width:100%;padding:9px;background:var(--red);color:#fff;border:none;
+  border-radius:7px;font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;
+  letter-spacing:1.5px;cursor:pointer;transition:background .2s,transform .15s;}
+.enter-btn:hover{background:var(--red-dark);transform:scale(1.02);}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2000;
+  backdrop-filter:blur(4px);animation:fadeIn .25s ease;overflow-y:auto;padding:24px 16px;}
+.modal-overlay.open{display:block;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-box{background:#fff;border-radius:16px;max-width:900px;margin:0 auto;
+  box-shadow:0 20px 80px rgba(0,0,0,0.28);overflow:hidden;animation:slideUp .3s ease;}
+@keyframes slideUp{from{transform:translateY(36px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-header{padding:22px 28px 18px;display:flex;align-items:center;
+  justify-content:space-between;border-bottom:2px solid #f0f0f0;}
+.modal-header-left{display:flex;align-items:center;gap:14px;}
+.modal-header-icon{width:44px;height:44px;border-radius:10px;display:flex;
+  align-items:center;justify-content:center;flex-shrink:0;}
+.modal-header h2{font-family:'Cinzel',serif;font-size:1.4rem;color:var(--red);font-weight:700;}
+.modal-header p{font-size:.75rem;color:#888;margin-top:3px;font-style:italic;}
+.modal-close{background:none;border:2px solid #ddd;width:34px;height:34px;border-radius:50%;
+  font-size:1rem;cursor:pointer;color:#888;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-close:hover{background:var(--red);color:#fff;border-color:var(--red);}
+.modal-body{padding:20px 28px 28px;}
+
+/* CATEGORY */
+.cat-section{margin-bottom:14px;border:1.5px solid #eee;border-radius:10px;overflow:hidden;}
+.cat-header{padding:12px 16px;background:#fafafa;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background .2s;border-bottom:1px solid #eee;}
+.cat-header:hover{background:rgba(192,57,43,0.04);}
+.cat-header h3{font-family:'Cinzel',serif;font-size:.88rem;color:var(--red);
+  font-weight:700;display:flex;align-items:center;gap:8px;}
+.cat-header h3::before{content:'';display:inline-block;width:7px;height:7px;
+  background:var(--red);border-radius:50%;}
+.cat-count{font-size:.7rem;color:#bbb;font-family:'Raleway',sans-serif;font-weight:400;margin-left:auto;margin-right:8px;}
+.cat-arrow{font-size:.7rem;color:#aaa;transition:transform .25s;}
+.cat-arrow.open{transform:rotate(180deg);}
+.cat-topics{display:none;padding:8px 0;}
+.cat-topics.open{display:block;}
+
+/* TOPIC ROW */
+.topic-row{display:flex;align-items:center;gap:10px;padding:10px 16px;
+  border-bottom:1px solid #f5f5f5;cursor:pointer;transition:background .2s;
+  position:relative;}
+.topic-row:last-child{border-bottom:none;}
+.topic-row:hover{background:rgba(192,57,43,0.04);}
+.topic-dot{width:8px;height:8px;background:var(--red);border-radius:50%;flex-shrink:0;}
+.topic-title{font-size:.86rem;font-weight:600;color:#333;flex:1;line-height:1.4;}
+.topic-chevron{font-size:.72rem;color:#bbb;flex-shrink:0;transition:transform .25s;}
+.topic-chevron.open{transform:rotate(90deg);}
+
+/* EXPLANATION PANEL */
+.topic-explanation{display:none;padding:14px 18px 16px 34px;background:#fdf8f8;
+  border-top:1px solid rgba(192,57,43,0.1);}
+.topic-explanation.open{display:block;}
+.explanation-content{font-size:.82rem;color:#444;line-height:1.8;}
+.explanation-content .loading{color:#aaa;font-style:italic;display:flex;align-items:center;gap:8px;}
+.explanation-content .loading::before{content:'';display:inline-block;width:14px;height:14px;
+  border:2px solid #ddd;border-top-color:var(--red);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.explanation-content h4{font-family:'Cinzel',serif;color:var(--red);font-size:.8rem;
+  margin:12px 0 5px;font-weight:700;}
+.explanation-content ul{padding-left:16px;margin:4px 0 8px;}
+.explanation-content ul li{margin-bottom:4px;}
+.explanation-content p{margin-bottom:8px;}
+.code-tag{display:inline-block;background:rgba(192,57,43,0.1);color:var(--red-dark);
+  font-size:.68rem;padding:1px 7px;border-radius:10px;font-weight:700;
+  margin:2px 2px 0;border:1px solid rgba(192,57,43,0.2);}
+
+/* EXPLANATION IMAGES */
+.explanation-diagrams{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;}
+.explanation-diagrams img{max-width:100%;border-radius:8px;border:1px solid #eee;
+  box-shadow:0 2px 10px rgba(0,0,0,0.07);}
+.diagram-svg-wrap{background:#f9f9f9;border:1px solid #eee;border-radius:8px;
+  padding:12px;margin:8px 0;text-align:center;}
+.diagram-svg-wrap svg{max-width:100%;height:auto;}
+.diagram-caption{font-size:.72rem;color:#999;font-style:italic;text-align:center;margin-top:5px;}
+
+/* FOOTER */
+footer{position:relative;z-index:1;background:var(--red-deep);
+  color:rgba(255,255,255,0.9);padding:30px 40px 22px;}
+.footer-inner{max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;}
+.footer-about h3{font-family:'Cinzel',serif;font-size:1.15rem;color:#fff;
+  margin-bottom:3px;letter-spacing:1px;}
+.footer-about .univ{font-size:.72rem;color:rgba(255,255,255,0.5);margin-bottom:8px;letter-spacing:.4px;}
+.footer-about .exp{font-size:.8rem;color:rgba(255,255,255,0.78);line-height:1.6;max-width:460px;}
+.footer-contacts{display:flex;flex-direction:column;gap:9px;}
+.contact-item{display:flex;align-items:center;gap:9px;font-size:.8rem;color:rgba(255,255,255,0.82);}
+.contact-icon{width:28px;height:28px;background:rgba(255,255,255,0.1);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:.78rem;flex-shrink:0;}
+.footer-line{border:none;border-top:1px solid rgba(255,255,255,0.1);
+  margin:18px 0 10px;max-width:1100px;margin-left:auto;margin-right:auto;}
+.footer-copy{text-align:center;font-size:.68rem;color:rgba(255,255,255,0.3);
+  letter-spacing:1px;max-width:1100px;margin:0 auto;}
+
+/* LOADING SCREEN */
+#loadingScreen{position:fixed;inset:0;background:#fff;z-index:9999;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;
+  transition:opacity .5s;}
+#loadingScreen.hidden{opacity:0;pointer-events:none;}
+.ls-spinner{width:36px;height:36px;border:3px solid #eee;border-top-color:var(--red);
+  border-radius:50%;animation:spin .8s linear infinite;}
+.ls-text{font-family:'Cinzel',serif;font-size:.8rem;color:#bbb;letter-spacing:2px;}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  header{padding:10px 14px;}
+  .site-name{font-size:1.5rem;}
+  .profile-circle{width:58px;height:58px;}
+  .header-badges{display:none;}
+  .profile-strip{padding:14px 16px;gap:20px;}
+  .sections-wrapper{padding:10px 12px 36px;}
+  .sections-grid{grid-template-columns:1fr;}
+  .hero{padding:28px 16px 18px;}
+  .footer-inner{grid-template-columns:1fr;}
+  footer{padding:24px 18px 16px;}
+  .modal-body{padding:14px 16px 22px;}
+  .modal-header{padding:16px 16px 12px;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loadingScreen">
+  <div class="ls-spinner"></div>
+  <div class="ls-text">Loading…</div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-left">
+    <div class="profile-circle">
+      <img id="profileImg" src="profile.jpg" alt="Ahmed Edrees" onerror="this.style.display='none'">
+    </div>
+    <div>
+      <div class="site-name" id="siteName">Edreeso Electrical</div>
+      <div class="site-tagline" id="siteTagline">Knowledge · Design · Excellence</div>
+    </div>
+  </div>
+  <div class="header-badges" id="headerBadges"></div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <h2 id="heroTitle">Electrical Engineering <span id="heroSpan">Reference Hub</span></h2>
+  <div class="divider"></div>
+  <p id="heroDesc">Loading…</p>
+</div>
+
+<!-- PROFILE STRIP -->
+<div class="profile-strip" id="profileStrip"></div>
+
+<!-- SECTIONS -->
+<div class="sections-wrapper">
+  <div class="section-title-bar">— Select a section to explore topics —</div>
+  <div class="sections-grid" id="sectionsGrid"></div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-header-icon" id="modalIcon"></div>
+        <div>
+          <h2 id="modalTitle">Section</h2>
+          <p id="modalSubtitle">Technical reference</p>
+        </div>
+      </div>
+      <button class="modal-close" id="modalCloseBtn">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="modalContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-about">
+      <h3 id="footerName">Ahmed Edrees Mohammed</h3>
+      <div class="univ" id="footerUniv"></div>
+      <div class="exp" id="footerBio"></div>
+    </div>
+    <div class="footer-contacts" id="footerContacts"></div>
+  </div>
+  <hr class="footer-line">
+  <div class="footer-copy" id="footerCopy"></div>
+</footer>
+
+<script>
+// ===== EMBED PHOTO =====
+(function(){
+  const b64="";
+  if(b64) document.getElementById('profileImg').src = 'data:image/jpeg;base64,' + b64;
+})();
+
+let sections = [];
+let activeSection = null;
+const explanationCache = {};
+
+// ===== LOAD DATA FROM JSON =====
+async function loadData(){
+  try {
+    const resp = await fetch('data.json?v=' + Date.now());
+    const data = await resp.json();
+    initSite(data);
+  } catch(e) {
+    console.error('Failed to load data.json', e);
+    document.getElementById('loadingScreen').classList.add('hidden');
+  }
+}
+
+function initSite(data){
+  const s = data.site;
+  const o = s.owner;
+
+  document.title = s.name + ' — Electrical Engineering';
+  document.getElementById('siteName').textContent = s.name;
+  document.getElementById('siteTagline').textContent = s.tagline;
+  document.getElementById('heroTitle').innerHTML = s.heroTitle + ' <span style="color:var(--red)">' + s.heroTitleHighlight + '</span>';
+  document.getElementById('heroDesc').textContent = s.heroDesc;
+
+  // Badges
+  const badgesEl = document.getElementById('headerBadges');
+  (s.badges || []).forEach(b => {
+    const span = document.createElement('span');
+    span.className = 'badge'; span.textContent = b;
+    badgesEl.appendChild(span);
+  });
+
+  // Profile strip
+  const strip = document.getElementById('profileStrip');
+  strip.innerHTML = `
+    <div class="pstrip-item"><span class="pstrip-label">${o.name}</span></div>
+    <div class="pstrip-item">🎓 <span>${o.university}</span></div>
+    <div class="pstrip-item">⚡ <span>${o.experience}</span></div>
+    <div class="pstrip-item">📍 <span>${o.location}</span></div>
+  `;
+
+  // Footer
+  document.getElementById('footerName').textContent = o.name;
+  document.getElementById('footerUniv').textContent = o.university;
+  document.getElementById('footerBio').textContent = o.bio;
+  document.getElementById('footerContacts').innerHTML = `
+    <div class="contact-item"><div class="contact-icon">📞</div><span>${o.phone}</span></div>
+    <div class="contact-item"><div class="contact-icon">✉️</div><span>${o.email}</span></div>
+    <div class="contact-item"><div class="contact-icon">📍</div><span>${o.location}</span></div>
+  `;
+  document.getElementById('footerCopy').textContent = '© 2026 ' + s.name + ' · ' + o.name + ' · All Rights Reserved';
+
+  // Sections
+  sections = data.sections;
+  renderCards();
+
+  // Hide loading
+  setTimeout(()=> document.getElementById('loadingScreen').classList.add('hidden'), 400);
+}
+
+// ===== COUNT TOPICS =====
+function countTopics(sec){
+  return sec.categories.reduce((s,c)=>s+c.topics.length,0);
+}
+
+// ===== RENDER CARDS =====
+function renderCards(){
+  const grid = document.getElementById('sectionsGrid');
+  grid.innerHTML = '';
+  sections.forEach((sec, si) => {
+    const total = countTopics(sec);
+    const card = document.createElement('div');
+    card.className = 'section-card';
+    card.innerHTML = `
+      <div class="card-thumb ${sec.thumbClass}">
+        ${sec.icon}
+        <div class="card-label-overlay">${sec.title}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">${sec.desc}</div>
+        <div class="card-meta">
+          <span class="card-count">${sec.categories.length} categories · ${total} topics</span>
+        </div>
+        <button class="enter-btn" onclick="openSection(${si})">ENTER SECTION →</button>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+// ===== OPEN SECTION =====
+function openSection(si){
+  activeSection = si;
+  const sec = sections[si];
+  document.getElementById('modalTitle').textContent = sec.title;
+  document.getElementById('modalSubtitle').textContent = sec.subtitle;
+  const iconEl = document.getElementById('modalIcon');
+  iconEl.innerHTML = sec.icon;
+  iconEl.style.background = sec.iconBg || '#1a1a2e';
+  renderModalContent();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+// ===== RENDER MODAL =====
+function renderModalContent(){
+  const sec = sections[activeSection];
+  const cont = document.getElementById('modalContent');
+  cont.innerHTML = sec.categories.map((cat, ci) => `
+    <div class="cat-section">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <h3>${cat.name}</h3>
+        <span class="cat-count">${cat.topics.length} topics</span>
+        <span class="cat-arrow">▼</span>
+      </div>
+      <div class="cat-topics">
+        ${cat.topics.map((t, ti) => `
+          <div class="topic-row" onclick="toggleTopic(this, ${ci}, ${ti})">
+            <div class="topic-dot"></div>
+            <div class="topic-title">${t}</div>
+            <span class="topic-chevron">▶</span>
+          </div>
+          <div class="topic-explanation">
+            <div class="explanation-content"></div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== TOGGLE CATEGORY =====
+function toggleCat(header){
+  const topics = header.nextElementSibling;
+  const arrow = header.querySelector('.cat-arrow');
+  const isOpen = topics.classList.contains('open');
+  topics.classList.toggle('open', !isOpen);
+  arrow.classList.toggle('open', !isOpen);
+}
+
+// ===== TOGGLE TOPIC / LOAD EXPLANATION =====
+function toggleTopic(row, ci, ti){
+  const expDiv = row.nextElementSibling;
+  const chevron = row.querySelector('.topic-chevron');
+  const isOpen = expDiv.classList.contains('open');
+  const allRows = row.closest('.cat-topics').querySelectorAll('.topic-row');
+  allRows.forEach(r => {
+    r.nextElementSibling.classList.remove('open');
+    r.querySelector('.topic-chevron').classList.remove('open');
+  });
+  if(!isOpen){
+    expDiv.classList.add('open');
+    chevron.classList.add('open');
+    loadExplanation(expDiv, ci, ti);
+  }
+}
+
+// ===== LOAD EXPLANATION VIA CLAUDE API =====
+async function loadExplanation(expDiv, ci, ti){
+  const sec = sections[activeSection];
+  const topic = sec.categories[ci].topics[ti];
+  const cacheKey = `${sec.id}__${ci}__${ti}`;
+  const contentDiv = expDiv.querySelector('.explanation-content');
+
+  if(explanationCache[cacheKey]){
+    contentDiv.innerHTML = explanationCache[cacheKey];
+    return;
+  }
+
+  contentDiv.innerHTML = '<div class="loading">Loading detailed explanation…</div>';
+
+  const isLightCurrent = sec.id === 'light-current';
+  const codes = isLightCurrent
+    ? 'NFPA 72, IEC 60839, IEC 62676, IEEE 802, BS 5839, BS EN 50131, and Egyptian Code'
+    : 'NEC, IEC 62271, IEC 60364, IEEE C37, BS 7671 and Egyptian Electrical Code';
+
+  const prompt = `You are a senior electrical engineer with expert knowledge of ${codes}.
+
+Write a comprehensive technical explanation for the topic: "${topic}"
+Context: ${sec.title} — ${sec.subtitle}
+
+Format your response as clean HTML using ONLY these tags: <h4>, <p>, <ul>, <li>, <span class="code-tag">, <div class="diagram-svg-wrap">, <svg>, <div class="diagram-caption">
+
+Structure your response as follows:
+1. <p> — Brief technical definition/overview (2-3 sentences)
+2. <h4>System Overview & Principle of Operation</h4> — <p> description + a simple inline SVG block diagram wrapped in <div class="diagram-svg-wrap"><svg viewBox="0 0 500 200" ...>...</svg><div class="diagram-caption">Caption here</div></div>
+3. <h4>Key Technical Components</h4> — <ul><li> list with technical detail
+4. <h4>Applicable Codes & Standards</h4> — specific code references using <span class="code-tag">CODE REF</span> with brief explanation of each requirement
+5. <h4>Design & Engineering Guidelines</h4> — <ul><li> practical design rules, sizing, spacing, coverage
+6. <h4>Installation Requirements</h4> — <ul><li> cabling, mounting, zoning, wiring rules
+7. <h4>Testing, Commissioning & Verification</h4> — <ul><li> test procedures and acceptance criteria
+
+Important:
+- Make the SVG diagram simple, clean, using black/dark strokes on white, with labeled boxes and arrows
+- Be technically precise and complete
+- No markdown, no backticks, only the listed HTML tags
+- Include real code clause numbers where applicable`;
+
+  try{
+    const resp = await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:2000,
+        messages:[{role:"user",content:prompt}]
+      })
+    });
+    const data = await resp.json();
+    const html = data.content.map(b=>b.text||'').join('');
+    explanationCache[cacheKey] = html;
+    contentDiv.innerHTML = html;
+  }catch(err){
+    contentDiv.innerHTML = '<p style="color:#c0392b;font-size:.82rem">Could not load explanation. Please check your connection.</p>';
+  }
+}
+
+// ===== CLOSE MODAL =====
+document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', e=>{
+  if(e.target===document.getElementById('modalOverlay')) closeModal();
+});
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+
+// ===== INIT =====
+loadData();
+</script>
+</body>
+</html>

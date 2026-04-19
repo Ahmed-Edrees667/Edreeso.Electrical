@@ -1,0 +1,299 @@
+{
+  "site": {
+    "name": "Edreeso Electrical",
+    "tagline": "Knowledge · Design · Excellence",
+    "heroTitle": "Electrical Engineering",
+    "heroTitleHighlight": "Reference Hub",
+    "heroDesc": "Comprehensive technical resources covering Medium Voltage, Low Voltage, Light Current systems and Electrical Testing — aligned with NEC, IEC, IEEE, BS, NFPA and Egyptian Code.",
+    "owner": {
+      "name": "Ahmed Edrees Mohammed",
+      "university": "Al-Azhar Al-Shareef University · B.Sc. Electrical Power & Machines",
+      "experience": "10+ Years Experience · MV/LV & Light Current Systems",
+      "location": "Sohag, Egypt",
+      "phone": "+20 111 134 8097",
+      "email": "Ahmed.edrees.mohammed@gmail.com",
+      "bio": "10+ years of experience in design, implementation and testing of electrical and light current systems across industrial, residential, commercial and medical facilities. Specializing in MV/LV power systems per NEC, IEC, IEEE, BS, NFPA and Egyptian Code."
+    },
+    "badges": ["NEC", "IEC", "IEEE", "BS", "NFPA", "EGYPTIAN CODE"]
+  },
+  "sections": [
+    {
+      "id": "electrical-mv",
+      "title": "Medium Voltage",
+      "subtitle": "MV Systems 1kV – 52kV",
+      "thumbClass": "card-thumb-mv",
+      "iconBg": "#1a1a2e",
+      "icon": "<svg viewBox=\"0 0 100 100\" fill=\"none\"><circle cx=\"50\" cy=\"50\" r=\"32\" stroke=\"#f0c040\" stroke-width=\"3\" fill=\"none\" opacity=\"0.4\"/><path d=\"M50 20 L60 45 L75 45 L63 60 L68 80 L50 65 L32 80 L37 60 L25 45 L40 45 Z\" fill=\"#f0c040\" opacity=\"0.85\"/></svg>",
+      "desc": "High-power distribution systems, switchgear, transformers, cables and protection relay engineering per IEC 62271, IEEE C37, BS and Egyptian Code.",
+      "categories": [
+        {
+          "name": "Equipment & Components",
+          "topics": [
+            "MV Switchgear (GIS & AIS)",
+            "Ring Main Unit (RMU)",
+            "Power Transformers",
+            "MV Cables (XLPE/EPR)",
+            "Vacuum Circuit Breakers (VCB)",
+            "Current & Voltage Transformers (CT/VT)",
+            "Surge Arresters",
+            "Battery Bank",
+            "Capacitor Banks"
+          ]
+        },
+        {
+          "name": "Design & Engineering",
+          "topics": [
+            "Short-Circuit Calculations",
+            "Load Flow Studies",
+            "Cable Sizing & Route Planning",
+            "Single-Line Diagrams (SLD)",
+            "Protection Relay Coordination",
+            "Earthing/Grounding Grid Design",
+            "Arc Flash Hazard Analysis",
+            "Power Quality Assessment"
+          ]
+        },
+        {
+          "name": "Installation & Site Work",
+          "topics": [
+            "Cable Laying Procedures",
+            "MV Cable Jointing & Termination",
+            "Transformer Installation",
+            "Switchgear Erection Sequence",
+            "Earthing System Installation",
+            "Safety Permit-to-Work (PTW)"
+          ]
+        },
+        {
+          "name": "Commissioning & Testing",
+          "topics": [
+            "HV Cable Testing (VLF / Tan Delta)",
+            "Transformer Commissioning Tests",
+            "Protection Relay Testing",
+            "Switchgear Functional Tests",
+            "Earth Grid Testing",
+            "Insulation Resistance & PI Test"
+          ]
+        },
+        {
+          "name": "Maintenance & Handover",
+          "topics": [
+            "Preventive Maintenance Schedules",
+            "Oil Analysis (DGA)",
+            "Handover Documentation (FAT/SAT)",
+            "Spare Parts Strategy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "electrical-lv",
+      "title": "Low Voltage",
+      "subtitle": "LV Systems up to 1000V",
+      "thumbClass": "card-thumb-lv",
+      "iconBg": "#0f3460",
+      "icon": "<svg viewBox=\"0 0 100 100\" fill=\"none\"><rect x=\"20\" y=\"30\" width=\"60\" height=\"40\" rx=\"6\" stroke=\"#60bfff\" stroke-width=\"3\" fill=\"none\" opacity=\"0.4\"/><rect x=\"30\" y=\"40\" width=\"12\" height=\"20\" rx=\"2\" fill=\"#60bfff\" opacity=\"0.7\"/><rect x=\"46\" y=\"40\" width=\"12\" height=\"20\" rx=\"2\" fill=\"#60bfff\" opacity=\"0.5\"/><rect x=\"62\" y=\"40\" width=\"8\" height=\"20\" rx=\"2\" fill=\"#60bfff\" opacity=\"0.35\"/><line x1=\"50\" y1=\"20\" x2=\"50\" y2=\"30\" stroke=\"#60bfff\" stroke-width=\"2.5\"/></svg>",
+      "desc": "Main distribution boards, sub-panels, wiring, protection devices and earthing systems per IEC 60364, NEC, BS 7671 and Egyptian Code.",
+      "categories": [
+        {
+          "name": "Distribution Boards & Panels",
+          "topics": [
+            "Main Distribution Board (MDB)",
+            "Sub-Main Distribution Board (SMDB)",
+            "Emergency Sub-Main DB (ESMDB)",
+            "Final Distribution Board (DB)",
+            "Motor Control Center (MCC)",
+            "Street Lighting Panel",
+            "UPS Panel",
+            "Automatic Transfer Switch (ATS)",
+            "Bus Duct (Busway) Systems"
+          ]
+        },
+        {
+          "name": "Protection Devices",
+          "topics": [
+            "Air Circuit Breaker (ACB)",
+            "Moulded Case Circuit Breaker (MCCB)",
+            "Miniature Circuit Breaker (MCB)",
+            "Residual Current Device (RCD/RCCB)",
+            "AFCI / GFCI",
+            "Surge Protection Device (SPD)",
+            "HRC Fuses",
+            "Thermal Overload Relays",
+            "Contactors & Relays"
+          ]
+        },
+        {
+          "name": "Cables & Wiring",
+          "topics": [
+            "MV and LV Cable Types",
+            "Cable Sizing Methods",
+            "Fire-Rated Cables (FRC/LSZH)",
+            "Voltage Drop Calculation",
+            "Earthing & Neutral Conductors",
+            "Wiring Installation Methods"
+          ]
+        },
+        {
+          "name": "Design & Calculations",
+          "topics": [
+            "Load Estimation & Demand Factor",
+            "Short-Circuit Level Calculation",
+            "Protection Coordination Study",
+            "Power Factor Correction",
+            "Earthing System Design (TN/TT/IT)",
+            "Lighting Design Calculation",
+            "Emergency Generator Sizing",
+            "Uninterruptible Power Supply (UPS)"
+          ]
+        },
+        {
+          "name": "Testing & Handover",
+          "topics": [
+            "Insulation Resistance Testing",
+            "Loop Impedance Testing",
+            "Earth Electrode Testing",
+            "RCD / ELCB Testing",
+            "Functional & Load Testing",
+            "Handover Package & IEQ Certificates"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "light-current",
+      "title": "Light Current",
+      "subtitle": "Low Current & Smart Building Systems",
+      "thumbClass": "card-thumb-lc",
+      "iconBg": "#1b4332",
+      "icon": "<svg viewBox=\"0 0 100 100\" fill=\"none\"><circle cx=\"50\" cy=\"50\" r=\"20\" stroke=\"#5dffa0\" stroke-width=\"2.5\" fill=\"none\" opacity=\"0.5\"/><circle cx=\"50\" cy=\"50\" r=\"8\" fill=\"#5dffa0\" opacity=\"0.6\"/><circle cx=\"50\" cy=\"22\" r=\"3\" fill=\"#5dffa0\" opacity=\"0.7\"/><circle cx=\"78\" cy=\"50\" r=\"3\" fill=\"#5dffa0\" opacity=\"0.7\"/><circle cx=\"50\" cy=\"78\" r=\"3\" fill=\"#5dffa0\" opacity=\"0.7\"/><circle cx=\"22\" cy=\"50\" r=\"3\" fill=\"#5dffa0\" opacity=\"0.7\"/></svg>",
+      "desc": "Intelligent building systems: Fire Alarm, CCTV, Access Control, BMS, KNX, PA, ICT infrastructure and structured cabling per NFPA, IEC, BS and Egyptian Code.",
+      "categories": [
+        {
+          "name": "Fire & Life Safety",
+          "topics": [
+            "Fire Alarm System (FAS)",
+            "Automatic Fire Suppression",
+            "Gas Detection System",
+            "Emergency Voice Alarm (EVAC/PAVA)",
+            "Emergency Lighting",
+            "Public Address & BGM System (PA)"
+          ]
+        },
+        {
+          "name": "Security Systems",
+          "topics": [
+            "CCTV & Video Surveillance",
+            "Access Control System (ACS)",
+            "Intrusion Detection System (IDS)",
+            "Audio/Video Intercom System",
+            "Perimeter Security Systems"
+          ]
+        },
+        {
+          "name": "Building Management",
+          "topics": [
+            "BMS System Architecture",
+            "HVAC Controls Integration",
+            "Lighting Control (DALI/KNX)",
+            "KNX System",
+            "Energy Metering & Monitoring",
+            "Fault Detection & Diagnostics"
+          ]
+        },
+        {
+          "name": "ICT & Network Infrastructure",
+          "topics": [
+            "Structured Cabling System (SCS)",
+            "Data & Network Infrastructure",
+            "MATV / SMATV / IPTV",
+            "Telephone & PABX / VoIP",
+            "Passive Optical Network (GPON)",
+            "Wi-Fi Infrastructure Design"
+          ]
+        },
+        {
+          "name": "Special Systems",
+          "topics": [
+            "Nurse Call System (NCS)",
+            "Queue Management System",
+            "Car Parking Guidance System",
+            "Audio-Visual (AV) Systems",
+            "Fuel Management System"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elec-testing",
+      "title": "Electrical Testing",
+      "subtitle": "Commissioning, Testing & Verification",
+      "thumbClass": "card-thumb-et",
+      "iconBg": "#6b2d2d",
+      "icon": "<svg viewBox=\"0 0 100 100\" fill=\"none\"><path d=\"M20 70 Q35 30 50 50 Q65 70 80 30\" stroke=\"#ffb347\" stroke-width=\"3\" fill=\"none\" stroke-linecap=\"round\"/><circle cx=\"50\" cy=\"50\" r=\"5\" fill=\"#ffb347\" opacity=\"0.8\"/><line x1=\"50\" y1=\"18\" x2=\"50\" y2=\"28\" stroke=\"#ffb347\" stroke-width=\"2.5\"/><line x1=\"72\" y1=\"28\" x2=\"65\" y2=\"35\" stroke=\"#ffb347\" stroke-width=\"2\"/><line x1=\"28\" y1=\"28\" x2=\"35\" y2=\"35\" stroke=\"#ffb347\" stroke-width=\"2\"/></svg>",
+      "desc": "Systematic electrical testing and commissioning procedures per IEC 60364-6, IEEE 80, BS 7671 and Egyptian Code standards.",
+      "categories": [
+        {
+          "name": "LV Testing Procedures",
+          "topics": [
+            "Insulation Resistance Test (IR)",
+            "Continuity of Protective Conductors",
+            "Loop Impedance Test (Zs)",
+            "RCD / ELCB Testing",
+            "Earth Electrode Resistance Test",
+            "Phase Rotation & Sequence Test",
+            "Polarity Test",
+            "Voltage & Frequency Verification"
+          ]
+        },
+        {
+          "name": "MV/HV Testing Procedures",
+          "topics": [
+            "HV Withstand Test (AC / DC Hi-Pot)",
+            "Very Low Frequency (VLF) Cable Test",
+            "Tan Delta / Power Factor Test",
+            "Partial Discharge (PD) Measurement",
+            "Transformer Turns Ratio (TTR) Test",
+            "Winding Resistance Test",
+            "Sweep Frequency Response Analysis (SFRA)"
+          ]
+        },
+        {
+          "name": "Protection & Relay Testing",
+          "topics": [
+            "Secondary Injection Testing",
+            "Primary Injection Testing",
+            "Overcurrent Relay (IDMT) Testing",
+            "Differential Relay Testing",
+            "Distance (Impedance) Relay Testing",
+            "Earth Fault Relay Testing",
+            "Under/Over Voltage & Frequency Relay"
+          ]
+        },
+        {
+          "name": "Special & System Tests",
+          "topics": [
+            "Power Quality Survey",
+            "Load Bank Testing (Generator)",
+            "UPS System Testing",
+            "Lightning Protection System Testing",
+            "Thermal Imaging (Thermography)",
+            "Battery Testing (IEEE 1188)",
+            "Oil / SF6 Gas Analysis"
+          ]
+        },
+        {
+          "name": "Documentation & Handover",
+          "topics": [
+            "Factory Acceptance Test (FAT)",
+            "Site Acceptance Test (SAT)",
+            "As-Built Documentation",
+            "Operation & Maintenance Manuals (O&M)",
+            "Commissioning Report",
+            "Consulting Engineer Submission"
+          ]
+        }
+      ]
+    }
+  ]
+}

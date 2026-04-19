@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — Edreeso Electrical</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700;800&family=Cinzel:wght@400;700;900&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#C0392B;--red-dark:#7B2D2D;--red-deep:#5C1A1A;--text:#222;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Raleway',sans-serif;background:#f5f5f5;color:var(--text);min-height:100vh;}
+
+/* LOGIN */
+#loginScreen{position:fixed;inset:0;background:var(--red-deep);
+  display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;gap:20px;}
+#loginScreen.hidden{display:none;}
+.login-box{background:#fff;border-radius:16px;padding:40px 48px;text-align:center;
+  box-shadow:0 20px 80px rgba(0,0,0,0.4);min-width:320px;}
+.login-box h2{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--red);margin-bottom:4px;}
+.login-box p{font-size:.75rem;color:#999;margin-bottom:24px;letter-spacing:1px;}
+.login-box input{width:100%;padding:10px 14px;border:1.5px solid #ddd;border-radius:8px;
+  font-family:'Raleway',sans-serif;font-size:.9rem;outline:none;margin-bottom:14px;transition:border-color .2s;}
+.login-box input:focus{border-color:var(--red);}
+.login-box button{width:100%;padding:11px;background:var(--red);color:#fff;border:none;
+  border-radius:8px;font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;
+  letter-spacing:1.5px;cursor:pointer;transition:background .2s;}
+.login-box button:hover{background:var(--red-dark);}
+.login-err{color:var(--red);font-size:.78rem;margin-top:-8px;margin-bottom:8px;display:none;}
+
+/* ADMIN LAYOUT */
+#adminApp{display:none;}
+#adminApp.visible{display:block;}
+.admin-header{background:var(--red-deep);padding:14px 32px;
+  display:flex;align-items:center;justify-content:space-between;}
+.admin-header h1{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#fff;letter-spacing:1px;}
+.admin-header span{font-size:.75rem;color:rgba(255,255,255,0.5);}
+.admin-header-right{display:flex;gap:10px;align-items:center;}
+.btn-logout{background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);
+  padding:7px 16px;border-radius:6px;cursor:pointer;font-family:'Raleway',sans-serif;
+  font-size:.78rem;transition:background .2s;}
+.btn-logout:hover{background:rgba(255,255,255,0.2);}
+.btn-back{background:var(--red);color:#fff;border:none;
+  padding:7px 16px;border-radius:6px;cursor:pointer;font-family:'Raleway',sans-serif;
+  font-size:.78rem;transition:background .2s;text-decoration:none;display:inline-block;}
+.btn-back:hover{background:var(--red-dark);}
+
+/* TABS */
+.admin-tabs{background:#fff;border-bottom:2px solid #eee;padding:0 32px;display:flex;gap:0;}
+.tab-btn{padding:14px 22px;background:none;border:none;cursor:pointer;
+  font-family:'Raleway',sans-serif;font-size:.82rem;font-weight:600;color:#999;
+  border-bottom:3px solid transparent;transition:all .2s;margin-bottom:-2px;}
+.tab-btn.active{color:var(--red);border-bottom-color:var(--red);}
+.tab-btn:hover{color:var(--red);}
+
+/* CONTENT */
+.admin-body{max-width:1100px;margin:28px auto;padding:0 24px 60px;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* SECTION / CATEGORY EDITOR */
+.panel{background:#fff;border-radius:12px;box-shadow:0 2px 16px rgba(0,0,0,0.07);
+  border:1.5px solid #eee;overflow:hidden;margin-bottom:20px;}
+.panel-header{padding:14px 20px;background:#fafafa;border-bottom:1px solid #eee;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.panel-header h3{font-family:'Cinzel',serif;font-size:.88rem;color:var(--red);font-weight:700;}
+.panel-body{padding:18px 20px;}
+.field-row{margin-bottom:14px;}
+.field-row label{display:block;font-size:.75rem;font-weight:700;color:#666;
+  text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;}
+.field-row input,.field-row textarea,.field-row select{
+  width:100%;padding:9px 12px;border:1.5px solid #ddd;border-radius:7px;
+  font-family:'Raleway',sans-serif;font-size:.85rem;outline:none;
+  transition:border-color .2s;background:#fff;}
+.field-row textarea{resize:vertical;min-height:70px;}
+.field-row input:focus,.field-row textarea:focus,.field-row select:focus{border-color:var(--red);}
+
+/* BUTTONS */
+.btn{padding:8px 18px;border:none;border-radius:7px;cursor:pointer;
+  font-family:'Raleway',sans-serif;font-size:.8rem;font-weight:700;transition:all .2s;}
+.btn-red{background:var(--red);color:#fff;}
+.btn-red:hover{background:var(--red-dark);}
+.btn-outline{background:none;border:1.5px solid #ddd;color:#666;}
+.btn-outline:hover{border-color:var(--red);color:var(--red);}
+.btn-danger{background:none;border:1.5px solid #ffcdd2;color:#c62828;font-size:.75rem;padding:5px 12px;}
+.btn-danger:hover{background:#ffebee;}
+.btn-sm{padding:5px 12px;font-size:.75rem;}
+.btn-green{background:#2e7d32;color:#fff;}
+.btn-green:hover{background:#1b5e20;}
+
+/* TOPICS LIST */
+.topics-list{border:1.5px solid #eee;border-radius:8px;overflow:hidden;margin:10px 0;}
+.topic-item{display:flex;align-items:center;gap:10px;padding:10px 14px;
+  border-bottom:1px solid #f5f5f5;}
+.topic-item:last-child{border-bottom:none;}
+.topic-item:hover{background:#fafafa;}
+.topic-item .topic-name{flex:1;font-size:.84rem;color:#333;}
+.topic-item input{flex:1;padding:6px 10px;border:1.5px solid #ddd;border-radius:5px;
+  font-family:'Raleway',sans-serif;font-size:.84rem;outline:none;}
+.topic-item input:focus{border-color:var(--red);}
+.drag-handle{color:#ccc;cursor:grab;font-size:.9rem;}
+.add-topic-row{display:flex;gap:8px;margin-top:10px;}
+.add-topic-row input{flex:1;padding:8px 12px;border:1.5px solid #ddd;border-radius:7px;
+  font-family:'Raleway',sans-serif;font-size:.84rem;outline:none;}
+.add-topic-row input:focus{border-color:var(--red);}
+
+/* SECTION SELECT */
+.section-select-bar{display:flex;gap:10px;align-items:center;margin-bottom:20px;
+  background:#fff;padding:14px 18px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  border:1.5px solid #eee;}
+.section-select-bar label{font-size:.8rem;font-weight:700;color:#666;text-transform:uppercase;
+  letter-spacing:.8px;white-space:nowrap;}
+.section-select-bar select{flex:1;padding:8px 12px;border:1.5px solid #ddd;border-radius:7px;
+  font-family:'Raleway',sans-serif;font-size:.85rem;outline:none;}
+
+/* SITE SETTINGS */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:600px){.settings-grid{grid-template-columns:1fr;}}
+
+/* STATUS */
+.status-bar{padding:10px 16px;border-radius:8px;font-size:.82rem;margin-bottom:16px;display:none;}
+.status-bar.success{background:#e8f5e9;color:#2e7d32;border:1px solid #c8e6c9;display:block;}
+.status-bar.error{background:#ffebee;color:#c62828;border:1px solid #ffcdd2;display:block;}
+
+/* CATEGORY BLOCK */
+.cat-block{border:1.5px solid #eee;border-radius:9px;margin-bottom:14px;overflow:hidden;}
+.cat-block-header{padding:10px 16px;background:#fafafa;border-bottom:1px solid #eee;
+  display:flex;align-items:center;gap:10px;}
+.cat-block-header h4{font-family:'Cinzel',serif;font-size:.82rem;color:var(--red);flex:1;}
+.cat-block-body{padding:14px 16px;}
+
+/* IMPORT/EXPORT */
+.json-area{width:100%;min-height:300px;padding:12px;border:1.5px solid #ddd;border-radius:8px;
+  font-family:'Courier New',monospace;font-size:.78rem;outline:none;resize:vertical;}
+.json-area:focus{border-color:var(--red);}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <h2>Admin Panel</h2>
+    <p>EDREESO ELECTRICAL · PROTECTED</p>
+    <input type="password" id="pwdInput" placeholder="Enter password" autocomplete="current-password">
+    <div class="login-err" id="loginErr">Incorrect password. Try again.</div>
+    <button onclick="doLogin()">ENTER →</button>
+  </div>
+</div>
+
+<!-- ADMIN APP -->
+<div id="adminApp">
+  <div class="admin-header">
+    <div>
+      <h1>⚡ Admin Panel</h1>
+      <span>Edreeso Electrical — Content Management</span>
+    </div>
+    <div class="admin-header-right">
+      <a href="index.html" class="btn-back">← View Site</a>
+      <button class="btn-logout" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="admin-tabs">
+    <button class="tab-btn active" onclick="switchTab('topics')">📋 Topics & Categories</button>
+    <button class="tab-btn" onclick="switchTab('sections')">🗂 Sections</button>
+    <button class="tab-btn" onclick="switchTab('site')">⚙️ Site Settings</button>
+    <button class="tab-btn" onclick="switchTab('importexport')">💾 Import / Export</button>
+  </div>
+
+  <div class="admin-body">
+    <div id="statusBar" class="status-bar"></div>
+
+    <!-- TAB: TOPICS -->
+    <div class="tab-content active" id="tab-topics">
+      <div class="section-select-bar">
+        <label>Section:</label>
+        <select id="topicSectionSel" onchange="renderTopicsEditor()"></select>
+        <label>Category:</label>
+        <select id="topicCatSel" onchange="renderCatTopics()"></select>
+      </div>
+      <div id="topicsEditorArea"></div>
+    </div>
+
+    <!-- TAB: SECTIONS -->
+    <div class="tab-content" id="tab-sections">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h2 style="font-family:'Cinzel',serif;font-size:1rem;color:var(--red);">Manage Sections</h2>
+        <button class="btn btn-red" onclick="addSection()">＋ New Section</button>
+      </div>
+      <div id="sectionsEditorArea"></div>
+    </div>
+
+    <!-- TAB: SITE SETTINGS -->
+    <div class="tab-content" id="tab-site">
+      <div class="panel">
+        <div class="panel-header"><h3>Site Identity</h3></div>
+        <div class="panel-body">
+          <div class="settings-grid">
+            <div class="field-row"><label>Site Name</label><input id="cfg_siteName"></div>
+            <div class="field-row"><label>Tagline</label><input id="cfg_tagline"></div>
+            <div class="field-row"><label>Hero Title</label><input id="cfg_heroTitle"></div>
+            <div class="field-row"><label>Hero Highlight</label><input id="cfg_heroHighlight"></div>
+          </div>
+          <div class="field-row"><label>Hero Description</label><textarea id="cfg_heroDesc"></textarea></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><h3>Owner Information</h3></div>
+        <div class="panel-body">
+          <div class="settings-grid">
+            <div class="field-row"><label>Full Name</label><input id="cfg_ownerName"></div>
+            <div class="field-row"><label>Location</label><input id="cfg_ownerLocation"></div>
+            <div class="field-row"><label>Phone</label><input id="cfg_ownerPhone"></div>
+            <div class="field-row"><label>Email</label><input id="cfg_ownerEmail"></div>
+            <div class="field-row"><label>University</label><input id="cfg_ownerUniv"></div>
+            <div class="field-row"><label>Experience</label><input id="cfg_ownerExp"></div>
+          </div>
+          <div class="field-row"><label>Bio</label><textarea id="cfg_ownerBio"></textarea></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><h3>Header Badges</h3></div>
+        <div class="panel-body">
+          <div class="field-row"><label>Badges (comma-separated)</label><input id="cfg_badges" placeholder="NEC, IEC, IEEE, BS, NFPA, EGYPTIAN CODE"></div>
+        </div>
+      </div>
+      <div style="margin-top:10px;">
+        <button class="btn btn-red" onclick="saveSiteSettings()">💾 Save Settings</button>
+      </div>
+    </div>
+
+    <!-- TAB: IMPORT/EXPORT -->
+    <div class="tab-content" id="tab-importexport">
+      <div class="panel">
+        <div class="panel-header"><h3>Export data.json</h3></div>
+        <div class="panel-body">
+          <p style="font-size:.82rem;color:#666;margin-bottom:12px;">
+            Download the complete <code>data.json</code> file. Replace the file on GitHub with this to publish your changes.
+          </p>
+          <button class="btn btn-red" onclick="exportJSON()">⬇ Download data.json</button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><h3>Import / Edit Raw JSON</h3></div>
+        <div class="panel-body">
+          <p style="font-size:.82rem;color:#666;margin-bottom:10px;">
+            Paste a valid <code>data.json</code> below to import it directly. Advanced use only.
+          </p>
+          <textarea class="json-area" id="jsonImportArea" placeholder='Paste full data.json content here…'></textarea>
+          <div style="display:flex;gap:10px;margin-top:10px;">
+            <button class="btn btn-outline" onclick="loadCurrentJSON()">Load Current JSON</button>
+            <button class="btn btn-red" onclick="importJSON()">✔ Apply Import</button>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><h3>Change Admin Password</h3></div>
+        <div class="panel-body">
+          <div class="settings-grid">
+            <div class="field-row"><label>New Password</label><input type="password" id="newPwd1" placeholder="New password"></div>
+            <div class="field-row"><label>Confirm Password</label><input type="password" id="newPwd2" placeholder="Confirm password"></div>
+          </div>
+          <button class="btn btn-red btn-sm" onclick="changePassword()">Update Password</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ===== PASSWORD =====
+const DEFAULT_PWD = 'Edreeso@2026';
+let siteData = null;
+
+function getStoredPwd(){ return localStorage.getItem('edreeso_admin_pwd') || DEFAULT_PWD; }
+function doLogin(){
+  const val = document.getElementById('pwdInput').value;
+  if(val === getStoredPwd()){
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('adminApp').classList.add('visible');
+    loadAdminData();
+  } else {
+    document.getElementById('loginErr').style.display = 'block';
+    document.getElementById('pwdInput').value = '';
+  }
+}
+document.getElementById('pwdInput').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+function doLogout(){
+  document.getElementById('loginScreen').classList.remove('hidden');
+  document.getElementById('adminApp').classList.remove('visible');
+  document.getElementById('pwdInput').value = '';
+}
+function changePassword(){
+  const p1 = document.getElementById('newPwd1').value.trim();
+  const p2 = document.getElementById('newPwd2').value.trim();
+  if(!p1){ showStatus('Please enter a new password.','error'); return; }
+  if(p1 !== p2){ showStatus('Passwords do not match.','error'); return; }
+  localStorage.setItem('edreeso_admin_pwd', p1);
+  showStatus('Password updated successfully. Remember to note it down!','success');
+  document.getElementById('newPwd1').value = '';
+  document.getElementById('newPwd2').value = '';
+}
+
+// ===== LOAD DATA =====
+async function loadAdminData(){
+  try {
+    const resp = await fetch('data.json?v=' + Date.now());
+    siteData = await resp.json();
+  } catch(e) {
+    const saved = localStorage.getItem('edreeso_admin_data');
+    if(saved) siteData = JSON.parse(saved);
+    else { showStatus('Could not load data.json. Make sure the file exists.','error'); return; }
+  }
+  initAdminUI();
+}
+
+function saveToBrowser(){
+  localStorage.setItem('edreeso_admin_data', JSON.stringify(siteData));
+}
+
+function showStatus(msg, type){
+  const bar = document.getElementById('statusBar');
+  bar.textContent = msg;
+  bar.className = 'status-bar ' + type;
+  setTimeout(()=>{ bar.className='status-bar'; }, 4000);
+}
+
+// ===== INIT UI =====
+function initAdminUI(){
+  renderSectionDropdowns();
+  renderTopicsEditor();
+  renderSectionsEditor();
+  loadSiteSettingsForm();
+}
+
+// ===== TAB SWITCHING =====
+function switchTab(name){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ===== SECTION DROPDOWNS =====
+function renderSectionDropdowns(){
+  const sel = document.getElementById('topicSectionSel');
+  sel.innerHTML = siteData.sections.map((s,i)=>`<option value="${i}">${s.title}</option>`).join('');
+  updateCatDropdown();
+}
+
+function updateCatDropdown(){
+  const si = +document.getElementById('topicSectionSel').value;
+  const sel = document.getElementById('topicCatSel');
+  sel.innerHTML = siteData.sections[si].categories.map((c,i)=>`<option value="${i}">${c.name}</option>`).join('');
+  renderCatTopics();
+}
+
+function renderTopicsEditor(){
+  updateCatDropdown();
+}
+
+// ===== RENDER TOPICS =====
+function renderCatTopics(){
+  const si = +document.getElementById('topicSectionSel').value;
+  const ci = +document.getElementById('topicCatSel').value;
+  const cat = siteData.sections[si].categories[ci];
+  const area = document.getElementById('topicsEditorArea');
+
+  area.innerHTML = `
+    <div class="panel">
+      <div class="panel-header">
+        <h3>${cat.name} <span style="font-weight:400;color:#aaa;font-family:'Raleway',sans-serif">(${cat.topics.length} topics)</span></h3>
+        <button class="btn btn-red btn-sm" onclick="saveTopics(${si},${ci})">💾 Save</button>
+      </div>
+      <div class="panel-body">
+        <div class="topics-list" id="topicsList_${si}_${ci}">
+          ${cat.topics.map((t,ti)=>`
+            <div class="topic-item" data-ti="${ti}">
+              <span class="drag-handle">⠿</span>
+              <input value="${escHtml(t)}" onchange="updateTopicVal(${si},${ci},${ti},this.value)">
+              <button class="btn btn-danger btn-sm" onclick="deleteTopic(${si},${ci},${ti})">✕</button>
+            </div>
+          `).join('')}
+        </div>
+        <div class="add-topic-row">
+          <input type="text" id="newTopic_${si}_${ci}" placeholder="Type new topic name…">
+          <button class="btn btn-red" onclick="addTopic(${si},${ci})">＋ Add</button>
+        </div>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid #eee;">
+          <button class="btn btn-outline btn-sm" onclick="addCategory(${si})">＋ Add New Category to This Section</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function escHtml(str){ return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function updateTopicVal(si,ci,ti,val){
+  siteData.sections[si].categories[ci].topics[ti] = val;
+  saveToBrowser();
+}
+
+function addTopic(si,ci){
+  const inp = document.getElementById(`newTopic_${si}_${ci}`);
+  const val = inp.value.trim();
+  if(!val) return;
+  siteData.sections[si].categories[ci].topics.push(val);
+  saveToBrowser();
+  renderCatTopics();
+  showStatus('Topic added. Click "Save" then export data.json.','success');
+}
+
+function deleteTopic(si,ci,ti){
+  if(!confirm('Delete this topic?')) return;
+  siteData.sections[si].categories[ci].topics.splice(ti,1);
+  saveToBrowser();
+  renderCatTopics();
+  showStatus('Topic deleted.','success');
+}
+
+function saveTopics(si,ci){
+  saveToBrowser();
+  showStatus('✔ Saved to browser. Export data.json to publish.','success');
+}
+
+function addCategory(si){
+  const name = prompt('Category name:');
+  if(!name) return;
+  siteData.sections[si].categories.push({name, topics:[]});
+  saveToBrowser();
+  renderSectionDropdowns();
+  document.getElementById('topicCatSel').value = siteData.sections[si].categories.length - 1;
+  renderCatTopics();
+  showStatus('Category added.','success');
+}
+
+// ===== SECTIONS EDITOR =====
+function renderSectionsEditor(){
+  const area = document.getElementById('sectionsEditorArea');
+  area.innerHTML = siteData.sections.map((sec,si)=>`
+    <div class="panel">
+      <div class="panel-header">
+        <h3>${escHtml(sec.title)}</h3>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-red btn-sm" onclick="saveSection(${si})">💾 Save</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteSection(${si})">🗑 Delete</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="settings-grid">
+          <div class="field-row"><label>Title</label>
+            <input id="sec_title_${si}" value="${escHtml(sec.title)}" onchange="siteData.sections[${si}].title=this.value"></div>
+          <div class="field-row"><label>Subtitle</label>
+            <input id="sec_sub_${si}" value="${escHtml(sec.subtitle)}" onchange="siteData.sections[${si}].subtitle=this.value"></div>
+          <div class="field-row"><label>Card CSS Class</label>
+            <input value="${escHtml(sec.thumbClass)}" onchange="siteData.sections[${si}].thumbClass=this.value"></div>
+          <div class="field-row"><label>Icon Background</label>
+            <input value="${escHtml(sec.iconBg||'')}" onchange="siteData.sections[${si}].iconBg=this.value"></div>
+        </div>
+        <div class="field-row"><label>Description</label>
+          <textarea onchange="siteData.sections[${si}].desc=this.value">${escHtml(sec.desc)}</textarea></div>
+        <div class="field-row"><label>Categories</label>
+          <div style="font-size:.78rem;color:#aaa;">${sec.categories.map(c=>c.name).join(' · ')}</div>
+          <small style="font-size:.7rem;color:#bbb;">Use the Topics & Categories tab to manage categories and topics.</small>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function saveSection(si){
+  saveToBrowser();
+  renderSectionsEditor();
+  renderSectionDropdowns();
+  showStatus('✔ Section saved. Export data.json to publish.','success');
+}
+
+function deleteSection(si){
+  if(!confirm('Delete this entire section? This cannot be undone.')) return;
+  siteData.sections.splice(si,1);
+  saveToBrowser();
+  renderSectionsEditor();
+  renderSectionDropdowns();
+  showStatus('Section deleted.','success');
+}
+
+function addSection(){
+  siteData.sections.push({
+    id:'new-section-'+Date.now(),
+    title:'New Section',
+    subtitle:'Subtitle here',
+    thumbClass:'card-thumb-mv',
+    iconBg:'#1a1a2e',
+    icon:'<svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="30" stroke="#fff" stroke-width="3" fill="none" opacity="0.5"/></svg>',
+    desc:'Section description.',
+    categories:[{name:'General',topics:['Topic 1','Topic 2']}]
+  });
+  saveToBrowser();
+  renderSectionsEditor();
+  renderSectionDropdowns();
+  showStatus('New section created.','success');
+}
+
+// ===== SITE SETTINGS =====
+function loadSiteSettingsForm(){
+  const s = siteData.site;
+  const o = s.owner;
+  document.getElementById('cfg_siteName').value = s.name||'';
+  document.getElementById('cfg_tagline').value = s.tagline||'';
+  document.getElementById('cfg_heroTitle').value = s.heroTitle||'';
+  document.getElementById('cfg_heroHighlight').value = s.heroTitleHighlight||'';
+  document.getElementById('cfg_heroDesc').value = s.heroDesc||'';
+  document.getElementById('cfg_ownerName').value = o.name||'';
+  document.getElementById('cfg_ownerLocation').value = o.location||'';
+  document.getElementById('cfg_ownerPhone').value = o.phone||'';
+  document.getElementById('cfg_ownerEmail').value = o.email||'';
+  document.getElementById('cfg_ownerUniv').value = o.university||'';
+  document.getElementById('cfg_ownerExp').value = o.experience||'';
+  document.getElementById('cfg_ownerBio').value = o.bio||'';
+  document.getElementById('cfg_badges').value = (s.badges||[]).join(', ');
+}
+
+function saveSiteSettings(){
+  siteData.site.name = document.getElementById('cfg_siteName').value;
+  siteData.site.tagline = document.getElementById('cfg_tagline').value;
+  siteData.site.heroTitle = document.getElementById('cfg_heroTitle').value;
+  siteData.site.heroTitleHighlight = document.getElementById('cfg_heroHighlight').value;
+  siteData.site.heroDesc = document.getElementById('cfg_heroDesc').value;
+  siteData.site.owner.name = document.getElementById('cfg_ownerName').value;
+  siteData.site.owner.location = document.getElementById('cfg_ownerLocation').value;
+  siteData.site.owner.phone = document.getElementById('cfg_ownerPhone').value;
+  siteData.site.owner.email = document.getElementById('cfg_ownerEmail').value;
+  siteData.site.owner.university = document.getElementById('cfg_ownerUniv').value;
+  siteData.site.owner.experience = document.getElementById('cfg_ownerExp').value;
+  siteData.site.owner.bio = document.getElementById('cfg_ownerBio').value;
+  siteData.site.badges = document.getElementById('cfg_badges').value.split(',').map(b=>b.trim()).filter(Boolean);
+  saveToBrowser();
+  showStatus('✔ Site settings saved. Export data.json to publish.','success');
+}
+
+// ===== IMPORT / EXPORT =====
+function exportJSON(){
+  const blob = new Blob([JSON.stringify(siteData, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'data.json';
+  a.click(); URL.revokeObjectURL(url);
+  showStatus('✔ data.json downloaded. Upload it to your GitHub repository.','success');
+}
+
+function loadCurrentJSON(){
+  document.getElementById('jsonImportArea').value = JSON.stringify(siteData, null, 2);
+}
+
+function importJSON(){
+  try {
+    const parsed = JSON.parse(document.getElementById('jsonImportArea').value);
+    if(!parsed.site || !parsed.sections) throw new Error('Invalid structure');
+    siteData = parsed;
+    saveToBrowser();
+    initAdminUI();
+    showStatus('✔ JSON imported successfully.','success');
+  } catch(e) {
+    showStatus('Invalid JSON: ' + e.message,'error');
+  }
+}
+</script>
+</body>
+</html>
